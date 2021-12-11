@@ -1,0 +1,161 @@
+{
+  "title": "Formulario",
+  "description": "",
+  "formCode": "FormularioJSON",
+  "steps": [
+    {
+      "id": "stepOne",
+      "title": "Paso 1",
+      "type": "GROUP",
+      "sections": [
+        {
+          "id": "SectionOne",
+          "title": "Sección 1",
+          "fields": [
+            {
+              "id": "typeText",
+              "type": "",
+              "options": {
+                "label": "Nombre",
+                "placeholder": "Inserte su nombre",
+                "type": "text",
+                "value": null
+              }
+            },
+            {
+              "id": "typePassword",
+              "type": "",
+              "options": {
+                "label": "Password",
+                "placeholder": "Inserte su contraseña",
+                "type": "password",
+                "value": null
+              }
+            },
+            {
+              "id": "typeNumber",
+              "type": "",
+              "options": {
+                "label": "Numeros",
+                "placeholder": "Inserte su edad",
+                "type": "number",
+                "value": null
+              }
+            },
+            {
+              "id": "typeSelect",
+              "type": "",
+              "options": {
+                "label": "Lista",
+                "placeholder": "Seleccione una opción",
+                "type": "select",
+                "value": null,
+                "options": [
+                  {
+                    "label": "Option 1",
+                    "value": "1"
+                  },
+                  {
+                    "label": "Option 2",
+                    "value": "2"
+                  },
+                  {
+                    "label": "Option 3",
+                    "value": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "typeCheckbox",
+              "type": "",
+              "options": {
+                "label": "Check",
+                "placeholder": "Inserte su edad",
+                "type": "checkbox",
+                "value": null
+              }
+            },
+            {
+              "id": "typeRadio",
+              "type": "",
+              "options": {
+                "label": "Radio",
+                "placeholder": "Inserte su edad",
+                "type": "radio",
+                "value": null,
+                "options": [
+                  {
+                    "label": "Option 1",
+                    "value": "1"
+                  },
+                  {
+                    "label": "Option 2",
+                    "value": "2"
+                  },
+                  {
+                    "label": "Option 3",
+                    "value": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "typeDate",
+              "type": "",
+              "options": {
+                "label": "Fecha",
+                "placeholder": "",
+                "type": "date",
+                "value": null
+              }
+            },
+            {
+              "id": "typeTextArea",
+              "type": "",
+              "options": {
+                "label": "TextArea",
+                "placeholder": "Ingrese su texto",
+                "type": "textarea",
+                "value": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stepTwo",
+      "title": "Paso Dos",
+      "type": "ARRAY",
+      "sections": [
+        {
+          "id": "SectionOne",
+          "title": "Sección 1",
+          "fields": [
+            {
+              "id": "fieldOne",
+              "type": "",
+              "options": {
+                "label": "Phone",
+                "placeholder": "telefono",
+                "type": "text",
+                "value": null
+              }
+            },
+            {
+              "id": "fieldTwo",
+              "type": "",
+              "options": {
+                "label": "Address",
+                "placeholder": "Dirección",
+                "type": "text",
+                "value": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
