@@ -15,7 +15,7 @@
             {
               "id": "typeText",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Nombre",
                 "placeholder": "Inserte su nombre",
                 "type": "text",
@@ -25,7 +25,7 @@
             {
               "id": "typePassword",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Password",
                 "placeholder": "Inserte su contraseña",
                 "type": "password",
@@ -35,7 +35,7 @@
             {
               "id": "typeNumber",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Numeros",
                 "placeholder": "Inserte su edad",
                 "type": "number",
@@ -45,7 +45,7 @@
             {
               "id": "typeSelect",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Lista",
                 "placeholder": "Seleccione una opción",
                 "type": "select",
@@ -69,7 +69,7 @@
             {
               "id": "typeCheckbox",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Check",
                 "placeholder": "Inserte su edad",
                 "type": "checkbox",
@@ -79,7 +79,7 @@
             {
               "id": "typeRadio",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Radio",
                 "placeholder": "Inserte su edad",
                 "type": "radio",
@@ -103,7 +103,7 @@
             {
               "id": "typeDate",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Fecha",
                 "placeholder": "",
                 "type": "date",
@@ -113,7 +113,7 @@
             {
               "id": "typeTextArea",
               "type": "",
-              "options": {
+              "config": {
                 "label": "TextArea",
                 "placeholder": "Ingrese su texto",
                 "type": "textarea",
@@ -136,7 +136,7 @@
             {
               "id": "fieldOne",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Phone",
                 "placeholder": "telefono",
                 "type": "text",
@@ -146,7 +146,7 @@
             {
               "id": "fieldTwo",
               "type": "",
-              "options": {
+              "config": {
                 "label": "Address",
                 "placeholder": "Dirección",
                 "type": "text",

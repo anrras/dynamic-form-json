@@ -21,20 +21,20 @@ export interface SectionDTO {
 export interface FieldDTO {
   id: string;
   type: string;
-  options: OptionsDTO;
+  config: ConfigDTO;
   validators?: ValidatorDTO;
   rules?: RuleDTO[];
 }
 
-export interface OptionsDTO {
+export interface ConfigDTO {
   label: string;
   placeholder: string;
   value: string | number | boolean;
-  options: SelectDTO[];
+  options: OptionsDTO[];
   type: string;
 }
 
-export interface SelectDTO {
+export interface OptionsDTO {
   value: string;
   label: string;
 }
