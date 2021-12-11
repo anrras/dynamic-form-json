@@ -1,0 +1,97 @@
+<form [formGroup]="form">
+  <div *ngFor="let step of jsonFormData?.steps">
+    <div [ngSwitch]="step.type">
+      <!-- Group -->
+      <div *ngSwitchCase="'GROUP'" [formGroupName]="step.id">
+        <h1>{{step.id}} </h1>
+        <section *ngFor="let section of step.sections">
+          <div *ngFor="let field of section.fields">
+
+            <!-- field options -->
+            <div [ngSwitch]="field.options.type">
+              <div *ngSwitchCase="'text'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+              </div>
+              <div *ngSwitchCase="'password'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+              </div>
+              <div *ngSwitchCase="'number'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+              </div>
+              <div *ngSwitchCase="'select'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
+                  <option [value]="null" selected hidden>{{field.options.placeholder}}</option>
+                  <option *ngFor="let item of field.options.options" [value]="item.value">{{item.label}}</option>
+                </select>
+              </div>
+              <div *ngSwitchCase="'checkbox'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+              </div>
+              <div *ngSwitchCase="'date'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+              </div>
+
+              <div *ngSwitchCase="'radio'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <div *ngFor="let enum of field.options.options">
+                  <label for="{{field.id + enum.value}}">
+                    <input [id]="field.id+enum.value" [value]='enum.value' type="radio" [formControlName]="field.id">
+                    {{enum.label}}
+                  </label>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'textarea'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <textarea name="" id="" cols="30" rows="10" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder"></textarea>
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </section>
+      </div>
+      <!-- Array -->
+      <div *ngSwitchCase="'ARRAY'" [formArrayName]="step.id">
+        <div *ngFor="let group of getFormArray(step.id).controls; let i = index">
+          <div [formGroupName]="i">
+            <h1>{{step.id}} {{i + 1}}</h1>
+            <section *ngFor="let section of step.sections">
+
+              <div *ngFor="let field of section.fields">
+
+
+                <label [for]="field.id">{{field.options.label}}</label>
+                <input [type]="field.options.type" [formControlName]="field.id"
+                  [placeholder]="field.options.placeholder">
+
+              </div>
+              <button (click)="removeArrayGroup(step.id, i)" *ngIf="i > 0">Eliminar</button>
+              <button (click)="addArrayGroup(step.id, section.fields)">Añadir</button>
+
+            </section>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <button (click)="submitForm()">Enviar</button>
+</form>
