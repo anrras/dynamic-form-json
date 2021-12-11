@@ -14,16 +14,19 @@
                 <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
                   [placeholder]="field.options.placeholder">
               </div>
+
               <div *ngSwitchCase="'password'">
                 <label [for]="field.id">{{field.options.label}}</label>
                 <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
                   [placeholder]="field.options.placeholder">
               </div>
+
               <div *ngSwitchCase="'number'">
                 <label [for]="field.id">{{field.options.label}}</label>
                 <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
                   [placeholder]="field.options.placeholder">
               </div>
+
               <div *ngSwitchCase="'select'">
                 <label [for]="field.id">{{field.options.label}}</label>
                 <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
@@ -31,11 +34,13 @@
                   <option *ngFor="let item of field.options.options" [value]="item.value">{{item.label}}</option>
                 </select>
               </div>
+
               <div *ngSwitchCase="'checkbox'">
                 <label [for]="field.id">{{field.options.label}}</label>
                 <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
                   [placeholder]="field.options.placeholder">
               </div>
+
               <div *ngSwitchCase="'date'">
                 <label [for]="field.id">{{field.options.label}}</label>
                 <input [id]="field.id" [type]="field.options.type" [formControlName]="field.id"
@@ -56,6 +61,14 @@
                 <label [for]="field.id">{{field.options.label}}</label>
                 <textarea name="" id="" cols="30" rows="10" [formControlName]="field.id"
                   [placeholder]="field.options.placeholder"></textarea>
+              </div>
+
+              <div *ngSwitchCase="'country'">
+                <label [for]="field.id">{{field.options.label}}</label>
+                <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
+                  <option [value]="null" selected hidden>{{field.options.placeholder}}</option>
+                  <option *ngFor="let item of field.options.options" [value]="item.value">{{item.label}}</option>
+                </select>
               </div>
 
             </div>
