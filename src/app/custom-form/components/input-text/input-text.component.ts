@@ -34,7 +34,6 @@ export class InputTextComponent implements ControlValueAccessor {
   constructor() {}
 
   writeValue(obj: any): void {
-    console.log(obj);
     this.name.setValue(obj);
   }
   registerOnChange(fn: any): void {

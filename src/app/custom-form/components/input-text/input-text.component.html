@@ -1,5 +1,6 @@
-<div>
+<div class="mb-3">
     <label [for]="field.id">{{field.config.label}}</label>
-    <input [id]="field.id" [formControl]="name" [type]="field.config.type" [placeholder]="field.config.placeholder"
-        (change)="changeText()">
+    <input [type]="field.config.type" class="form-control" [id]="field.id" [formControl]="name"
+        [placeholder]="field.config.placeholder" (change)="changeText()">
+    <small class="text-danger">We'll never share your email with anyone else.</small>
 </div>

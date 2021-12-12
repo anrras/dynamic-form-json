@@ -1,5 +1,4 @@
-import { Input } from '@angular/core';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
@@ -29,7 +28,6 @@ export class InputPasswordComponent implements ControlValueAccessor {
   constructor() {}
 
   writeValue(obj: any): void {
-    console.log(obj);
     this.name.setValue(obj);
   }
   registerOnChange(fn: any): void {
