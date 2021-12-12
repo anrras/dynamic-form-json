@@ -8,7 +8,7 @@ export interface FormDTO {
 export interface StepDTO {
   id: string;
   title: string;
-  type: 'GROUP' | 'ARRAY';
+  type: 'GROUP' | 'ARRAY' | '';
   sections: SectionDTO[];
 }
 
@@ -24,6 +24,7 @@ export interface FieldDTO {
   config: ConfigDTO;
   validators?: ValidatorDTO;
   rules?: RuleDTO[];
+  enabled?: boolean;
 }
 
 export interface ConfigDTO {
