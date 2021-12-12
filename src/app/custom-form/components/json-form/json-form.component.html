@@ -1,24 +1,28 @@
 <form [formGroup]="form">
   <div *ngFor="let step of jsonFormData?.steps">
     <div [ngSwitch]="step.type">
+      <!-- Default -->
+      <div *ngSwitchCase="''">
+        <h1>{{step.title}} </h1>
+        <section *ngFor="let section of step.sections">
+          <ng-container *ngFor="let field of section.fields">
+            <!-- {{field | json}} -->
+          </ng-container>
+        </section>
+      </div>
       <!-- Group -->
       <div *ngSwitchCase="'GROUP'" [formGroupName]="step.id">
-        <h1>{{step.id}} </h1>
+        <h1>{{step.title}} </h1>
         <section *ngFor="let section of step.sections">
-          <div *ngFor="let field of section.fields">
+          <ng-container *ngFor="let field of section.fields">
 
-            <button class="btn btn-primary">GOLA</button>
             <!-- field options -->
-            <div [ngSwitch]="field.config.type">
+            <ng-container [ngSwitch]="field.config.type">
               <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
               </app-input-text>
 
-
-              <div *ngSwitchCase="'password'">
-                <label [for]="field.id">{{field.config.label}}</label>
-                <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                  [placeholder]="field.config.placeholder">
-              </div>
+              <app-input-password *ngSwitchCase="'password'" [formControlName]="field.id" [field]="field">
+              </app-input-password>
 
               <div *ngSwitchCase="'number'">
                 <label [for]="field.id">{{field.config.label}}</label>
@@ -70,10 +74,10 @@
                 </select>
               </div>
 
-            </div>
+            </ng-container>
 
 
-          </div>
+          </ng-container>
 
         </section>
       </div>
@@ -81,78 +85,11 @@
       <div *ngSwitchCase="'ARRAY'" [formArrayName]="step.id">
         <div *ngFor="let group of getFormArray(step.id).controls; let i = index">
           <div [formGroupName]="i">
-            <h1>{{step.id}} {{i + 1}}</h1>
+            <h1>{{step.title}} {{i + 1}}</h1>
             <section *ngFor="let section of step.sections">
 
               <div *ngFor="let field of section.fields">
-
-
                 <!-- field options -->
-                <!-- <div [ngSwitch]="field.config.type">
-                  <div *ngSwitchCase="'text'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder">
-                  </div>
-
-                  <div *ngSwitchCase="'password'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder">
-                  </div>
-
-                  <div *ngSwitchCase="'number'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder">
-                  </div>
-
-                  <div *ngSwitchCase="'select'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
-                      <option [value]="null" selected hidden>{{field.config.placeholder}}</option>
-                      <option *ngFor="let item of field.config.options" [value]="item.value">{{item.label}}</option>
-                    </select>
-                  </div>
-
-                  <div *ngSwitchCase="'checkbox'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder">
-                  </div>
-
-                  <div *ngSwitchCase="'date'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder">
-                  </div>
-
-                  <div *ngSwitchCase="'radio'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <div *ngFor="let enum of field.config.options">
-                      <label for="{{field.id + enum.value}}">
-                        <input [id]="field.id+enum.value" [value]='enum.value' type="radio"
-                          [formControlName]="field.id">
-                        {{enum.label}}
-                      </label>
-                    </div>
-                  </div>
-
-                  <div *ngSwitchCase="'textarea'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <textarea name="" id="" cols="30" rows="10" [formControlName]="field.id"
-                      [placeholder]="field.config.placeholder"></textarea>
-                  </div>
-
-                  <div *ngSwitchCase="'country'">
-                    <label [for]="field.id">{{field.config.label}}</label>
-                    <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
-                      <option [value]="null" selected hidden>{{field.config.placeholder}}</option>
-                      <option *ngFor="let item of field.config.options" [value]="item.value">{{item.label}}</option>
-                    </select>
-                  </div>
-
-                </div> -->
 
               </div>
               <button (click)="removeArrayGroup(step.id, i)" *ngIf="i > 0">Eliminar</button>
