@@ -1,0 +1,5 @@
+<div>
+    <label [for]="field.id">{{field.config.label}}</label>
+    <input [id]="field.id" [formControl]="name" [type]="field.config.type" [placeholder]="field.config.placeholder"
+        (change)="changeText()">
+</div>

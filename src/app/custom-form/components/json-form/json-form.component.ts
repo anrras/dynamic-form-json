@@ -5,8 +5,14 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormDTO } from '../../models';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { FormDTO, FieldDTO } from '../../models';
 
 @Component({
   selector: 'app-json-form',
@@ -34,7 +40,11 @@ export class JsonFormComponent implements OnChanges {
 
         step.sections.map((section: any) => {
           section.fields.map((field: any) => {
-            const newControl = new FormControl();
+            let validatorsToAdd = this.createValidators(field);
+            const newControl = new FormControl(
+              field.config.value,
+              validatorsToAdd
+            );
             newGroup.addControl(field.id, newControl);
           });
         });
@@ -46,7 +56,11 @@ export class JsonFormComponent implements OnChanges {
 
         step.sections.map((section: any) => {
           section.fields.map((field: any) => {
-            const newControl = new FormControl();
+            let validatorsToAdd = this.createValidators(field);
+            const newControl = new FormControl(
+              field.config.value,
+              validatorsToAdd
+            );
             oneGroup.addControl(field.id, newControl);
           });
         });
@@ -55,6 +69,54 @@ export class JsonFormComponent implements OnChanges {
         this.form.addControl(step.id, newArray);
       }
     }
+  }
+
+  createValidators(field: FieldDTO) {
+    const validatorsToAdd = [];
+    if (field.validators) {
+      for (const [key, value] of Object.entries(field.validators)) {
+        switch (key) {
+          case 'min':
+            validatorsToAdd.push(Validators.min(value));
+            break;
+          case 'max':
+            validatorsToAdd.push(Validators.max(value));
+            break;
+          case 'required':
+            if (value) {
+              validatorsToAdd.push(Validators.required);
+            }
+            break;
+          case 'requiredTrue':
+            if (value) {
+              validatorsToAdd.push(Validators.requiredTrue);
+            }
+            break;
+          case 'email':
+            if (value) {
+              validatorsToAdd.push(Validators.email);
+            }
+            break;
+          case 'minLength':
+            validatorsToAdd.push(Validators.minLength(value));
+            break;
+          case 'maxLength':
+            validatorsToAdd.push(Validators.maxLength(value));
+            break;
+          // case 'pattern':
+          //   value.map((pattern: any) => {
+          //     validatorsToAdd.push(
+          //       patternValidator(pattern.regex, pattern.error)
+          //     );
+          //   });
+          //   break;
+
+          default:
+            break;
+        }
+      }
+    }
+    return validatorsToAdd;
   }
 
   getFormArray(key: string) {

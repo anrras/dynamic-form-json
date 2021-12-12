@@ -1,1 +1,1 @@
-export { FormDTO } from './form';
+export { FormDTO, FieldDTO } from './form';

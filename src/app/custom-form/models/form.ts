@@ -41,12 +41,18 @@ export interface OptionsDTO {
 
 export interface ValidatorDTO {
   required: boolean;
+  requiredTrue: boolean;
   min?: number;
   max?: number;
   minLength?: number;
   maxLength?: number;
-  pattern?: string;
+  pattern?: PatternDTO[];
   email?: boolean;
+}
+
+export interface PatternDTO {
+  regex: string;
+  error: string;
 }
 
 export interface RuleDTO {

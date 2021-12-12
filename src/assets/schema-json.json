@@ -20,6 +20,11 @@
                 "placeholder": "Inserte su nombre",
                 "type": "text",
                 "value": null
+              },
+              "validators": {
+                "required": true,
+                "minLength": 3,
+                "maxLength": 10
               }
             },
             {
@@ -134,22 +139,110 @@
           "title": "Sección 1",
           "fields": [
             {
-              "id": "fieldOne",
+              "id": "typeText",
               "type": "",
               "config": {
-                "label": "Phone",
-                "placeholder": "telefono",
+                "label": "Nombre",
+                "placeholder": "Inserte su nombre",
                 "type": "text",
                 "value": null
               }
             },
             {
-              "id": "fieldTwo",
+              "id": "typePassword",
               "type": "",
               "config": {
-                "label": "Address",
-                "placeholder": "Dirección",
-                "type": "text",
+                "label": "Password",
+                "placeholder": "Inserte su contraseña",
+                "type": "password",
+                "value": null
+              }
+            },
+            {
+              "id": "typeNumber",
+              "type": "",
+              "config": {
+                "label": "Numeros",
+                "placeholder": "Inserte su edad",
+                "type": "number",
+                "value": null
+              }
+            },
+            {
+              "id": "typeSelect",
+              "type": "",
+              "config": {
+                "label": "Lista",
+                "placeholder": "Seleccione una opción",
+                "type": "select",
+                "value": null,
+                "options": [
+                  {
+                    "label": "Option 1",
+                    "value": "1"
+                  },
+                  {
+                    "label": "Option 2",
+                    "value": "2"
+                  },
+                  {
+                    "label": "Option 3",
+                    "value": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "typeCheckbox",
+              "type": "",
+              "config": {
+                "label": "Check",
+                "placeholder": "Inserte su edad",
+                "type": "checkbox",
+                "value": null
+              }
+            },
+            {
+              "id": "typeRadio",
+              "type": "",
+              "config": {
+                "label": "Radio",
+                "placeholder": "Inserte su edad",
+                "type": "radio",
+                "value": null,
+                "options": [
+                  {
+                    "label": "Option 1",
+                    "value": "1"
+                  },
+                  {
+                    "label": "Option 2",
+                    "value": "2"
+                  },
+                  {
+                    "label": "Option 3",
+                    "value": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "typeDate",
+              "type": "",
+              "config": {
+                "label": "Fecha",
+                "placeholder": "",
+                "type": "date",
+                "value": null
+              }
+            },
+            {
+              "id": "typeTextArea",
+              "type": "",
+              "config": {
+                "label": "TextArea",
+                "placeholder": "Ingrese su texto",
+                "type": "textarea",
                 "value": null
               }
             }
