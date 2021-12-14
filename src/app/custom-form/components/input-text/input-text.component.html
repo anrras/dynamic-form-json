@@ -1,5 +1,6 @@
 <div class="mb-3">
     <label [for]="field.id">{{field.config.label}}</label>
-    <input [type]="field.config.type" class="form-control" [id]="field.id" [formControl]="valueInput"
-        [placeholder]="field.config.placeholder" (change)="changeText()">
+    <input [id]="field.id" [formControl]="control" [type]="field.config.type" class="form-control" checkInputValidity
+        [value]="valueInput" [disabled]="isDisabledValue" [placeholder]=" field.config.placeholder"
+        (change)="changeText()">
 </div>

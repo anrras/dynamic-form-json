@@ -23,12 +23,14 @@ export class InputPasswordComponent implements ControlValueAccessor {
   private onTouchFn!: Function;
 
   @Input() field: any;
-  public valueInput = new FormControl('');
+  @Input() control: any;
+  public valueInput: string;
+  public isDisabledValue: boolean;
 
   constructor() {}
 
-  writeValue(obj: any): void {
-    this.valueInput.setValue(obj);
+  writeValue(value: any): void {
+    this.valueInput = value;
   }
   registerOnChange(fn: any): void {
     this.onChangeFn = fn;
@@ -38,13 +40,13 @@ export class InputPasswordComponent implements ControlValueAccessor {
   }
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.valueInput.disable({ emitEvent: false });
+      //code logic here
     } else {
-      this.valueInput.enable({ emitEvent: false });
+      //code logic here
     }
   }
 
   changeText() {
-    this.onChangeFn(this.valueInput.value);
+    this.onChangeFn(this.valueInput);
   }
 }

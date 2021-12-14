@@ -19,7 +19,7 @@ import {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputTextComponent,
+      useExisting: forwardRef(() => InputTextComponent),
       multi: true,
     },
   ],
@@ -29,12 +29,14 @@ export class InputTextComponent implements ControlValueAccessor {
   private onTouchFn!: Function;
 
   @Input() field: any;
-  public valueInput = new FormControl('');
+  @Input() control: any;
+  public valueInput: string;
+  public isDisabledValue: boolean;
 
   constructor() {}
 
-  writeValue(obj: any): void {
-    this.valueInput.setValue(obj);
+  writeValue(value: any): void {
+    this.valueInput = value;
   }
   registerOnChange(fn: any): void {
     this.onChangeFn = fn;
@@ -44,13 +46,13 @@ export class InputTextComponent implements ControlValueAccessor {
   }
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.valueInput.disable();
+      this.isDisabledValue = true;
     } else {
-      this.valueInput.enable();
+      this.isDisabledValue = false;
     }
   }
 
   changeText() {
-    this.onChangeFn(this.valueInput.value);
+    this.onChangeFn(this.valueInput);
   }
 }
