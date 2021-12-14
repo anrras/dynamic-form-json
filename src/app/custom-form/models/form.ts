@@ -60,10 +60,10 @@ export interface PatternDTO {
 
 export interface RuleDTO {
   ruleType:
-    | 'HIDDEN' //show/hide
-    | 'REQUIRED' //validator
+    | 'SHOW' //show/hide
     | 'ENABLED' //TOGGLE ENABLE/DISABLE
     | 'FILTER' //PARA LOS SELECT
+    | 'REQUIRED' //VALIDATOR
     | 'BIRTHDAY' //VALIDATOR
     | 'PATRIMONIO'; //VALIDATOR
   dependentFieldCode: string[];

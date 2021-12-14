@@ -74,9 +74,6 @@ export class JsonFormComponent implements OnChanges {
         newGroup.addControl(field.id, newControl);
       }
     }
-    step.sections.forEach((section: any) => {
-      section.fields.forEach((field: any) => {});
-    });
     this.form.addControl(step.id, newGroup);
   }
 
@@ -151,15 +148,15 @@ export class JsonFormComponent implements OnChanges {
     this.form.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((newForm) => {
-        for (const step of jsonFormData.steps) {
-          for (const section of step.sections) {
-            for (const field of section.fields) {
-              for (const rule of field.rules) {
-                this.updateFormWithRules(rule, field, newForm);
-              }
-            }
-          }
-        }
+        // for (const step of jsonFormData.steps) {
+        //   for (const section of step.sections) {
+        //     for (const field of section.fields) {
+        //       for (const rule of field.rules) {
+        //         this.updateFormWithRules(rule, field, newForm);
+        //       }
+        //     }
+        //   }
+        // }
       });
   }
 
@@ -190,6 +187,7 @@ export class JsonFormComponent implements OnChanges {
   submitForm() {
     console.log('Form valid: ', this.form.valid);
     console.log('Form values: ', this.form);
+    // this.updateValuesOnFormDetails()
   }
 
   // updateValuesOnFormDetails() {
