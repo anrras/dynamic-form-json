@@ -8,6 +8,7 @@ import { JsonFormComponent } from './components/json-form/json-form.component';
 import { InputTextComponent } from './components/input-text/input-text.component';
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { ScrollToInvalidFieldDirective } from './directives/scroll-to-invalid-field.directive';
+import { CheckInputValidatyDirective } from './directives/check-input-validity.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ScrollToInvalidFieldDirective } from './directives/scroll-to-invalid-fi
     InputTextComponent,
     InputPasswordComponent,
     ScrollToInvalidFieldDirective,
+    CheckInputValidatyDirective,
   ],
   imports: [
     CommonModule,
