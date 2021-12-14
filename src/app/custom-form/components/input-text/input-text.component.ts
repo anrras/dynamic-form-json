@@ -29,12 +29,12 @@ export class InputTextComponent implements ControlValueAccessor {
   private onTouchFn!: Function;
 
   @Input() field: any;
-  public name = new FormControl('');
+  public valueInput = new FormControl('');
 
   constructor() {}
 
   writeValue(obj: any): void {
-    this.name.setValue(obj);
+    this.valueInput.setValue(obj);
   }
   registerOnChange(fn: any): void {
     this.onChangeFn = fn;
@@ -44,13 +44,13 @@ export class InputTextComponent implements ControlValueAccessor {
   }
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      //code logic here
+      this.valueInput.disable();
     } else {
-      //code logic here
+      this.valueInput.enable();
     }
   }
 
   changeText() {
-    this.onChangeFn(this.name.value);
+    this.onChangeFn(this.valueInput.value);
   }
 }
