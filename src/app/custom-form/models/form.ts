@@ -25,12 +25,14 @@ export interface FieldDTO {
   validators?: ValidatorDTO;
   rules?: RuleDTO[];
   enabled?: boolean;
+  maskConfig: MaskConfigDTO;
 }
 
 export interface ConfigDTO {
   label: string;
   placeholder: string;
   value: string | number | boolean;
+  readonly: boolean;
   options: OptionsDTO[];
   type: string;
 }
@@ -57,46 +59,21 @@ export interface PatternDTO {
 }
 
 export interface RuleDTO {
-  ruleType: string;
+  ruleType:
+    | 'HIDDEN' //show/hide
+    | 'REQUIRED' //validator
+    | 'ENABLED' //TOGGLE ENABLE/DISABLE
+    | 'FILTER' //PARA LOS SELECT
+    | 'BIRTHDAY' //VALIDATOR
+    | 'PATRIMONIO'; //VALIDATOR
   dependentFieldCode: string[];
-  strategyToCompare: string;
+  strategyToCompare: 'VALUE' | 'OR' | 'AND';
   valuesToCompare: string[];
 }
 
-//   {
-//     "id": "",
-//     "type": "",
-//     "options": {
-//       "label": "",
-//       "placeholder": "",
-//       "type": "",
-//       "value": "",
-//       "options": {
-//         "id": "",
-//         "value": ""
-//       }
-//     },
-//     "validators": {
-//       "readOnly": false,
-//       "required": true,
-//       "email": true,
-//       "min": 10,
-//       "max": 25,
-//       "minLength": 20,
-//       "maxLength": 30,
-//       "patterns": [
-//         {
-//           "pattern": "",
-//           "patternError": ""
-//         }
-//       ]
-//     },
-//     "rules": [
-//       {
-//         "ruleType": "",
-//         "dependentFieldCode": [],
-//         "strategyToCompare": "",
-//         "valuesToCompare": []
-//       }
-//     ]
-//   }
+export interface MaskConfigDTO {
+  mask: string;
+  prefix: string;
+  suffix: string;
+  thousandSeparator: string;
+}
