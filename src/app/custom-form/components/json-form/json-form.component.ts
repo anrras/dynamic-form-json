@@ -35,7 +35,7 @@ export class JsonFormComponent implements OnChanges {
     }
   }
 
-  createForm(jsonFormData: any) {
+  createForm(jsonFormData: FormDTO) {
     for (const step of jsonFormData.steps) {
       if (step.type === '') {
         this.createDefaultForm(step);
@@ -45,27 +45,37 @@ export class JsonFormComponent implements OnChanges {
         this.createArrayForm(step);
       }
     }
-    this.checkRules();
+    this.checkRules(jsonFormData);
   }
 
   createDefaultForm(step: StepDTO) {
-    step.sections.map((section: any) => {
-      section.fields.map((field: any) => {
+    for (const section of step.sections) {
+      for (const field of section.fields) {
         let validatorsToAdd = this.createValidators(field);
-        const newControl = new FormControl(field.config.value, validatorsToAdd);
+        const newControl = new FormControl(
+          { value: field.config.value, disabled: field.config.readonly },
+          validatorsToAdd
+        );
         this.form.addControl(field.id, newControl);
-      });
-    });
+      }
+    }
   }
 
   createGroupForm(step: StepDTO) {
     const newGroup = new FormGroup({});
-    step.sections.map((section: any) => {
-      section.fields.map((field: any) => {
+
+    for (const section of step.sections) {
+      for (const field of section.fields) {
         let validatorsToAdd = this.createValidators(field);
-        const newControl = new FormControl(field.config.value, validatorsToAdd);
+        const newControl = new FormControl(
+          { value: field.config.value, disabled: field.config.readonly },
+          validatorsToAdd
+        );
         newGroup.addControl(field.id, newControl);
-      });
+      }
+    }
+    step.sections.forEach((section: any) => {
+      section.fields.forEach((field: any) => {});
     });
     this.form.addControl(step.id, newGroup);
   }
@@ -73,13 +83,18 @@ export class JsonFormComponent implements OnChanges {
   createArrayForm(step: StepDTO) {
     const newArray = new FormArray([]);
     const oneGroup = new FormGroup({});
-    step.sections.map((section: any) => {
-      section.fields.map((field: any) => {
+
+    for (const section of step.sections) {
+      for (const field of section.fields) {
         let validatorsToAdd = this.createValidators(field);
-        const newControl = new FormControl(field.config.value, validatorsToAdd);
+        const newControl = new FormControl(
+          { value: field.config.value, disabled: field.config.readonly },
+          validatorsToAdd
+        );
         oneGroup.addControl(field.id, newControl);
-      });
-    });
+      }
+    }
+
     newArray.push(oneGroup);
     this.form.addControl(step.id, newArray);
   }
@@ -117,7 +132,7 @@ export class JsonFormComponent implements OnChanges {
             validatorsToAdd.push(Validators.maxLength(value));
             break;
           // case 'pattern':
-          //   value.map((pattern: any) => {
+          //   value.forEach((pattern: any) => {
           //     validatorsToAdd.push(
           //       patternValidator(pattern.regex, pattern.error)
           //     );
@@ -132,12 +147,26 @@ export class JsonFormComponent implements OnChanges {
     return validatorsToAdd;
   }
 
-  checkRules() {
+  checkRules(jsonFormData: FormDTO) {
     this.form.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((data) => {
-        console.log(data);
+      .subscribe((newForm) => {
+        for (const step of jsonFormData.steps) {
+          for (const section of step.sections) {
+            for (const field of section.fields) {
+              for (const rule of field.rules) {
+                this.updateFormWithRules(rule, field, newForm);
+              }
+            }
+          }
+        }
       });
+  }
+
+  updateFormWithRules(rule, field, form) {}
+
+  getGroupForm(key: string) {
+    return <FormGroup>this.form.controls[key];
   }
 
   getFormArray(key: string) {
@@ -147,7 +176,7 @@ export class JsonFormComponent implements OnChanges {
   addArrayGroup(arrayName: string, fields: any) {
     const control = this.getFormArray(arrayName);
     const oneGroup = new FormGroup({});
-    fields.map((field: any) => {
+    fields.forEach((field: any) => {
       oneGroup.addControl(field.id, new FormControl());
     });
     control.push(oneGroup);
@@ -161,9 +190,6 @@ export class JsonFormComponent implements OnChanges {
   submitForm() {
     console.log('Form valid: ', this.form.valid);
     console.log('Form values: ', this.form);
-    Object.keys(this.form.controls).forEach((key) => {
-      console.log(key, this.form.controls[key].value);
-    });
   }
 
   // updateValuesOnFormDetails() {
