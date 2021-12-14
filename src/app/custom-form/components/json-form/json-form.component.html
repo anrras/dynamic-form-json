@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form scrollToInvalidField [formGroup]="form">
   <div *ngFor="let step of jsonFormData?.steps">
     <div [ngSwitch]="step.type">
       <!-- Default -->
@@ -8,9 +8,15 @@
           <ng-container *ngFor="let field of section.fields">
             <!-- {{field | json}} -->
             <ng-container [ngSwitch]="field.config.type">
-              <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field"
+              <!-- <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field"
                 [control]="form.get(field.id)">
-              </app-input-text>
+              </app-input-text> -->
+
+              <div *ngSwitchCase="'text'">
+                <label [for]="field.id">{{field.config.label}}</label>
+                <input [id]="field.id" [type]="field.config.type" class="form-control" checkInputValidity
+                  [formControlName]="field.id" [placeholder]="field.config.placeholder">
+              </div>
 
               <app-input-password *ngSwitchCase="'password'" [formControlName]="field.id" [field]="field"
                 [control]="form.get(field.id)">
@@ -78,10 +84,14 @@
 
             <!-- field options -->
             <ng-container [ngSwitch]="field.config.type">
-              <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
-              </app-input-text>
+              <!-- <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
+              </app-input-text> -->
 
-
+              <div *ngSwitchCase="'text'">
+                <label [for]="field.id">{{field.config.label}}</label>
+                <input [id]="field.id" [type]="field.config.type" class="form-control" checkInputValidity
+                  [formControlName]="field.id" [placeholder]="field.config.placeholder">
+              </div>
 
               <app-input-password *ngSwitchCase="'password'" [formControlName]="field.id" [field]="field">
               </app-input-password>
@@ -227,5 +237,5 @@
       </div>
     </div>
   </div>
-  <button (click)="submitForm()" scrollToInvalidField>Enviar</button>
+  <button (click)="submitForm()">Enviar</button>
 </form>
