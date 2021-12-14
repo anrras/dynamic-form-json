@@ -46,6 +46,12 @@ export class JsonFormComponent implements OnChanges {
       }
     }
     this.checkRules(jsonFormData);
+    this.form.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((newForm) => {
+        console.log(newForm);
+        this.checkRules(jsonFormData);
+      });
   }
 
   createDefaultForm(step: StepDTO) {
@@ -145,22 +151,22 @@ export class JsonFormComponent implements OnChanges {
   }
 
   checkRules(jsonFormData: FormDTO) {
-    this.form.valueChanges
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((newForm) => {
-        // for (const step of jsonFormData.steps) {
-        //   for (const section of step.sections) {
-        //     for (const field of section.fields) {
-        //       for (const rule of field.rules) {
-        //         this.updateFormWithRules(rule, field, newForm);
-        //       }
-        //     }
-        //   }
-        // }
-      });
+    for (const step of jsonFormData.steps) {
+      for (const section of step.sections) {
+        for (const field of section.fields) {
+          if (field.rules) {
+            for (const rule of field.rules) {
+              this.updateFormWithRules(rule, field, this.form);
+            }
+          }
+        }
+      }
+    }
   }
 
-  updateFormWithRules(rule, field, form) {}
+  updateFormWithRules(rule, field, form) {
+    console.log({ rule, field, form });
+  }
 
   getGroupForm(key: string) {
     return <FormGroup>this.form.controls[key];

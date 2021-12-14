@@ -39,11 +39,7 @@ export class InputPasswordComponent implements ControlValueAccessor {
     this.onTouchFn = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      //code logic here
-    } else {
-      //code logic here
-    }
+    this.isDisabledValue = isDisabled;
   }
 
   changeText() {

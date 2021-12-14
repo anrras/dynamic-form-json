@@ -1,15 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input-text',
@@ -19,7 +9,7 @@ import {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputTextComponent),
+      useExisting: InputTextComponent,
       multi: true,
     },
   ],
@@ -45,11 +35,7 @@ export class InputTextComponent implements ControlValueAccessor {
     this.onTouchFn = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.isDisabledValue = true;
-    } else {
-      this.isDisabledValue = false;
-    }
+    this.isDisabledValue = isDisabled;
   }
 
   changeText() {
