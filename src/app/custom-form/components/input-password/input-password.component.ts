@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  Optional,
+  Self,
+} from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
+  NgControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 
@@ -10,24 +17,18 @@ import {
   templateUrl: './input-password.component.html',
   styleUrls: ['./input-password.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: InputPasswordComponent,
-      multi: true,
-    },
-  ],
 })
 export class InputPasswordComponent implements ControlValueAccessor {
-  private onChangeFn!: Function;
-  private onTouchFn!: Function;
+  private onChangeFn: Function;
+  private onTouchFn: Function;
 
   @Input() field: any;
-  @Input() control: any;
-  public valueInput: string;
-  public isDisabledValue: boolean;
+  public valueInput: any;
+  public disabled: boolean;
 
-  constructor() {}
+  constructor(@Self() @Optional() private control: NgControl) {
+    this.control.valueAccessor = this;
+  }
 
   writeValue(value: any): void {
     this.valueInput = value;
@@ -39,10 +40,30 @@ export class InputPasswordComponent implements ControlValueAccessor {
     this.onTouchFn = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.isDisabledValue = isDisabled;
+    this.disabled = isDisabled;
   }
 
-  changeText() {
+  changeText(event) {
+    this.valueInput = event.target.value;
+    this.onTouchFn();
     this.onChangeFn(this.valueInput);
+  }
+
+  public get invalid(): boolean {
+    return this.control.invalid;
+  }
+
+  public get hasError(): boolean {
+    const { dirty, touched } = this.control;
+
+    return this.invalid && (dirty || touched);
+  }
+
+  get errors() {
+    const control = this.control && this.control.control;
+    if (control) {
+      return control.touched && control.errors;
+    }
+    return null;
   }
 }

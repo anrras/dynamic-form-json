@@ -46,12 +46,6 @@ export class JsonFormComponent implements OnChanges {
       }
     }
     this.checkRules(jsonFormData);
-    this.form.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((newForm) => {
-        console.log(newForm);
-        this.checkRules(jsonFormData);
-      });
   }
 
   createDefaultForm(step: StepDTO) {
@@ -80,6 +74,9 @@ export class JsonFormComponent implements OnChanges {
         newGroup.addControl(field.id, newControl);
       }
     }
+    step.sections.forEach((section: any) => {
+      section.fields.forEach((field: any) => {});
+    });
     this.form.addControl(step.id, newGroup);
   }
 
@@ -193,7 +190,6 @@ export class JsonFormComponent implements OnChanges {
   submitForm() {
     console.log('Form valid: ', this.form.valid);
     console.log('Form values: ', this.form);
-    // this.updateValuesOnFormDetails()
   }
 
   // updateValuesOnFormDetails() {

@@ -1,5 +1,5 @@
 <div class="mb-3">
     <label [for]="field.id">{{field.config.label}}</label>
-    <input [id]="field.id" [formControl]="control" [type]="field.config.type" class="form-control" checkInputValidity
-        [value]="valueInput" [placeholder]=" field.config.placeholder" (change)="changeText()">
+    <input [type]="field.config.type" class="form-control" [id]="field.id" [placeholder]="field.config.placeholder"
+        [value]="valueInput" (change)="changeText($event)" [ngClass]="{'is-invalid': hasError ,'is-valid': !invalid}">
 </div>
