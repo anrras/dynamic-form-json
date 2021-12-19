@@ -79,15 +79,14 @@
         </section>
       </div>
       <!-- Group -->
-      <div *ngSwitchCase="'GROUP'" [formGroupName]="step.id">
+      <!-- <div *ngSwitchCase="'GROUP'" [formGroupName]="step.id">
         <h1>{{step.title}} </h1>
         <section *ngFor="let section of step.sections">
           <ng-container *ngFor="let field of section.fields">
 
-            <!-- field options -->
             <ng-container [ngSwitch]="field.config.type">
-              <!-- <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
-              </app-input-text> -->
+              <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
+              </app-input-text>
 
               <div *ngSwitchCase="'text'">
                 <label [for]="field.id">{{field.config.label}}</label>
@@ -154,17 +153,16 @@
           </ng-container>
 
         </section>
-      </div>
+      </div> -->
 
       <!-- Array -->
-      <div *ngSwitchCase="'ARRAY'" [formArrayName]="step.id">
+      <!-- <div *ngSwitchCase="'ARRAY'" [formArrayName]="step.id">
         <div *ngFor="let group of getFormArray(step.id).controls; let i = index">
           <div [formGroupName]="i">
             <h1>{{step.title}} {{i + 1}}</h1>
             <section *ngFor="let section of step.sections">
 
               <div *ngFor="let field of section.fields">
-                <!-- field options -->
                 <ng-container [ngSwitch]="field.config.type">
                   <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
                   </app-input-text>
@@ -236,7 +234,7 @@
 
         </div>
 
-      </div>
+      </div> -->
     </div>
   </div>
   <button (click)="submitForm()">Enviar</button>

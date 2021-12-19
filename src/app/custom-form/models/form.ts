@@ -63,9 +63,9 @@ export interface RuleDTO {
     | 'ENABLED'
     | 'DISABLED'
     | 'REQUIRED'
-    | 'BIRTHDAY'
-    | 'SHOW' //TODO
-    | 'HIDE' //TODO
+    | 'SHOW'
+    | 'HIDE'
+    | 'BIRTHDAY' //PROBAR
     | 'FILTER' //TODO PARA LOS SELECT
     | 'PATRIMONIO'; //TODO VARIOS CAMPOS
   strategyToCompare: 'VALUE' | 'FILLED' | 'OR' | 'AND';
