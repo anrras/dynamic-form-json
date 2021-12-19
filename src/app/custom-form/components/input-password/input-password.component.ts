@@ -5,7 +5,13 @@ import {
   Optional,
   Self,
 } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  NgControl,
+} from '@angular/forms';
+import { FieldDTO } from '@custom-form/models';
 
 @Component({
   selector: 'app-input-password',
@@ -16,9 +22,13 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 export class InputPasswordComponent implements ControlValueAccessor {
   private onChangeFn: Function;
   private onTouchFn: Function;
+  @Input()
+  public parentForm: FormGroup;
 
-  @Input() field: any;
+  @Input() field: FieldDTO;
   public valueInput: any;
+
+  public value = new FormControl(null);
   public disabled: boolean;
 
   constructor(@Self() @Optional() private control: NgControl) {
@@ -26,16 +36,23 @@ export class InputPasswordComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    this.valueInput = value;
+    // this.valueInput = value;
+    this.value.patchValue(value);
   }
   registerOnChange(fn: any): void {
-    this.onChangeFn = fn;
+    // this.onChangeFn = fn;
+    this.value.valueChanges.subscribe(fn);
   }
   registerOnTouched(fn: any): void {
     this.onTouchFn = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    // this.disabled = isDisabled;
+    if (isDisabled) {
+      this.value.disable({ emitEvent: false });
+    } else {
+      this.value.enable({ emitEvent: false });
+    }
   }
 
   changeText(event) {

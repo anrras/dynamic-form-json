@@ -11,15 +11,25 @@
               <app-input-text *ngSwitchCase="'text'" [formControlName]="field.id" [field]="field">
               </app-input-text>
 
-              <app-input-password *ngSwitchCase="'password'" [formControlName]="field.id" [field]="field">
+              <app-input-password *ngSwitchCase="'password'" [parentForm]="form" [formControlName]="field.id"
+                [field]="field">
               </app-input-password>
 
-              <div *ngSwitchCase="'number'">
+              <app-password *ngSwitchCase="'password'" [parentForm]="form" [fieldName]="field.id"
+                [formControlName]="field.id" [field]="field" [label]="field.config.label">
+              </app-password>
+
+              <!-- <app-number *ngSwitchCase="'number'" [parentForm]="form" fieldName="typeNumber" label="typeNumber"
+                formControlName="typeNumber">
+              </app-number> -->
+
+
+              <!-- <div *ngSwitchCase="'number'">
                 <label [for]="field.id">{{field.config.label}}</label>
                 <input [id]="field.id" [type]="field.config.type" [formControlName]="field.id"
                   [placeholder]="field.config.placeholder">
-              </div>
-
+              </div> -->
+              <!-- 
               <div *ngSwitchCase="'select'">
                 <label [for]="field.id">{{field.config.label}}</label>
                 <select [id]="field.id" [formControlName]="field.id" id="orderPersonId" name="orderPersonId">
@@ -62,7 +72,7 @@
                   <option [value]="null" selected hidden>{{field.config.placeholder}}</option>
                   <option *ngFor="let item of field.config.options" [value]="item.value">{{item.label}}</option>
                 </select>
-              </div>
+              </div> -->
 
             </ng-container>
           </ng-container>

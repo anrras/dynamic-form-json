@@ -31,24 +31,23 @@
             {
               "id": "typePassword",
               "type": "",
-              "enabled": true,
               "config": {
-                "label": "Password",
-                "placeholder": "Inserte su contraseña",
+                "label": "Nombre",
+                "placeholder": "Inserte su nombre",
                 "type": "password",
                 "value": null,
-                "readonly": false
+                "readonly": false,
+                "hidden": false
               },
               "rules": [
                 {
-                  "ruleType": "ENABLED",
-                  "dependentFieldCode": ["typeText"],
+                  "ruleType": "SHOW",
                   "strategyToCompare": "VALUE",
-                  "valuesToCompare": ["1"]
+                  "dependentFieldCode": ["typeText"],
+                  "valuesToCompare": ["2"]
                 }
               ],
               "validators": {
-                "required": true,
                 "minLength": 3,
                 "maxLength": 10
               }
@@ -60,8 +59,17 @@
                 "label": "Numeros",
                 "placeholder": "Inserte su edad",
                 "type": "number",
-                "value": null
-              }
+                "value": null,
+                "readonly": true
+              },
+              "rules": [
+                {
+                  "ruleType": "ENABLED",
+                  "strategyToCompare": "VALUE",
+                  "dependentFieldCode": ["typeText"],
+                  "valuesToCompare": ["1"]
+                }
+              ]
             },
             {
               "id": "typeSelect",
@@ -71,6 +79,7 @@
                 "placeholder": "Seleccione una opción",
                 "type": "select",
                 "value": null,
+                "readonly": true,
                 "options": [
                   {
                     "label": "Option 1",
@@ -85,7 +94,15 @@
                     "value": "3"
                   }
                 ]
-              }
+              },
+              "rules": [
+                {
+                  "ruleType": "ENABLED",
+                  "dependentFieldCode": ["typeText"],
+                  "strategyToCompare": "VALUE",
+                  "valuesToCompare": ["1"]
+                }
+              ]
             },
             {
               "id": "typeCheckbox",

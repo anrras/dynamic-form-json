@@ -1,0 +1,12 @@
+<div class="form-row" [formGroup]='parentForm'>
+    <label class="form-label" [for]="fieldName">
+
+        Numero
+
+    </label>
+    <input type="number" class="form-element" [ngClass]="{
+            'has-error':
+                formField?.invalid
+                && formField?.dirty
+        }" [id]="fieldName" [name]="fieldName" [value]="value" (input)="onChange( $event )" (blur)="touched()">
+</div>

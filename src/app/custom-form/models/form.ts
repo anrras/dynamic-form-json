@@ -24,7 +24,6 @@ export interface FieldDTO {
   config: ConfigDTO;
   validators?: ValidatorDTO;
   rules?: RuleDTO[];
-  enabled?: boolean;
   maskConfig: MaskConfigDTO;
 }
 
@@ -33,6 +32,7 @@ export interface ConfigDTO {
   placeholder: string;
   value: string | number | boolean;
   readonly: boolean;
+  hidden: boolean;
   options: OptionsDTO[];
   type: string;
 }
@@ -60,14 +60,17 @@ export interface PatternDTO {
 
 export interface RuleDTO {
   ruleType:
-    | 'SHOW' //show/hide
-    | 'ENABLED' //TOGGLE ENABLE/DISABLE
-    | 'FILTER' //PARA LOS SELECT
-    | 'REQUIRED' //VALIDATOR
-    | 'BIRTHDAY' //VALIDATOR
-    | 'PATRIMONIO'; //VALIDATOR
+    | 'ENABLED'
+    | 'DISABLED'
+    | 'REQUIRED'
+    | 'BIRTHDAY'
+    | 'SHOW' //TODO
+    | 'HIDE' //TODO
+    | 'FILTER' //TODO PARA LOS SELECT
+    | 'PATRIMONIO'; //TODO VARIOS CAMPOS
+  strategyToCompare: 'VALUE' | 'FILLED' | 'OR' | 'AND';
   dependentFieldCode: string[];
-  strategyToCompare: 'VALUE' | 'OR' | 'AND';
+
   valuesToCompare: string[];
 }
 

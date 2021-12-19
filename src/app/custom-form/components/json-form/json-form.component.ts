@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,6 +14,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormDTO, FieldDTO, StepDTO } from '@custom-form/models';
+import { RuleDTO } from '@custom-form/models/form';
+import { birthdayValidator } from '@custom-form/validators/birthday.validator';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -37,20 +40,20 @@ export class JsonFormComponent implements OnChanges {
 
   createForm(jsonFormData: FormDTO) {
     for (const step of jsonFormData.steps) {
-      if (step.type === '') {
-        this.createDefaultForm(step);
-      } else if (step.type === 'GROUP') {
-        this.createGroupForm(step);
-      } else if (step.type === 'ARRAY') {
-        this.createArrayForm(step);
-      }
+      // if (step.type === '') {
+      this.createDefaultForm(step);
+      // } else if (step.type === 'GROUP') {
+      //   this.createGroupForm(step);
+      // } else if (step.type === 'ARRAY') {
+      //   this.createArrayForm(step);
+      // }
     }
     //Check the rules at the beginning
-    this.checkRules(jsonFormData);
-    //Check the rules when the form changes
+    // this.checkRules(jsonFormData);
+    // Check the rules when the form changes
     this.form.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((value) => {
+      .subscribe(() => {
         this.checkRules(jsonFormData);
       });
   }
@@ -168,8 +171,115 @@ export class JsonFormComponent implements OnChanges {
     }
   }
 
-  updateFormWithRules(rule, field, form) {
-    console.log({ rule, field, form });
+  updateFormWithRules(rule: RuleDTO, field, form) {
+    if (rule.ruleType === 'ENABLED') {
+      if (rule.strategyToCompare === 'VALUE') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value === rule.valuesToCompare[0]) {
+              this.form.get(field.id).enable({ emitEvent: false });
+            }
+          });
+      }
+      if (rule.strategyToCompare === 'FILLED') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value) {
+              this.form.get(field.id).enable({ emitEvent: false });
+              this.form
+                .get(field.id)
+                .updateValueAndValidity({ emitEvent: false });
+            }
+          });
+      }
+      // falta el or y el and
+    }
+
+    if (rule.ruleType === 'DISABLED') {
+      if (rule.strategyToCompare === 'VALUE') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value === rule.valuesToCompare[0]) {
+              this.form.get(field.id).disable({ emitEvent: false });
+            }
+          });
+      }
+    }
+
+    if (rule.ruleType === 'REQUIRED') {
+      if (rule.strategyToCompare === 'VALUE') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value === rule.valuesToCompare[0]) {
+              this.form.get(field.id).setValidators([Validators.required]);
+              this.form
+                .get(field.id)
+                .updateValueAndValidity({ emitEvent: false });
+            }
+          });
+      }
+    }
+
+    if (rule.ruleType === 'BIRTHDAY') {
+      if (rule.strategyToCompare === 'VALUE') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value) {
+              this.form.get(field.id).setValidators([birthdayValidator(value)]);
+              this.form
+                .get(field.id)
+                .updateValueAndValidity({ emitEvent: false });
+            }
+          });
+      }
+    }
+
+    if (rule.ruleType === 'SHOW') {
+      if (rule.strategyToCompare === 'VALUE') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value === rule.valuesToCompare[0]) {
+              for (const step of this.jsonFormData.steps) {
+                for (const section of step.sections) {
+                  for (const fieldAux of section.fields) {
+                    if (fieldAux.id === field.id) {
+                      console.log('antes', field);
+                      fieldAux.config.hidden = false;
+                      console.log('despues', field);
+                    }
+                  }
+                }
+              }
+            }
+          });
+      }
+      if (rule.strategyToCompare === 'FILLED') {
+        this.form
+          .get(rule.dependentFieldCode[0])
+          .valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+          .subscribe((value) => {
+            if (value) {
+              this.form.get(field.id).enable({ emitEvent: false });
+              this.form
+                .get(field.id)
+                .updateValueAndValidity({ emitEvent: false });
+            }
+          });
+      }
+      // falta el or y el and
+    }
   }
 
   getGroupForm(key: string) {
