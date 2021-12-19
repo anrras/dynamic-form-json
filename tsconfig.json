@@ -20,6 +20,11 @@
       "es2018",
       "dom"
     ],
+    "paths": {
+      "@custom-form/*": [
+        "src/app/custom-form/*"
+      ],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

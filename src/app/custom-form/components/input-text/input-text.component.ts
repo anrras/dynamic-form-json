@@ -42,7 +42,6 @@ export class InputTextComponent implements ControlValueAccessor {
     this.valueInput = event.target.value;
     this.onTouchFn();
     this.onChangeFn(this.valueInput);
-    console.log(this.errors);
   }
 
   public get invalid(): boolean {

@@ -12,7 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormDTO, FieldDTO, StepDTO } from '../../models';
+import { FormDTO, FieldDTO, StepDTO } from '@custom-form/models';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -45,7 +45,14 @@ export class JsonFormComponent implements OnChanges {
         this.createArrayForm(step);
       }
     }
+    //Check the rules at the beginning
     this.checkRules(jsonFormData);
+    //Check the rules when the form changes
+    this.form.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        this.checkRules(jsonFormData);
+      });
   }
 
   createDefaultForm(step: StepDTO) {

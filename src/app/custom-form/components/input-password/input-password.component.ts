@@ -1,16 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  forwardRef,
   Input,
   Optional,
   Self,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NgControl,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-password',
